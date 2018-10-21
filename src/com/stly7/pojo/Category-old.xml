@@ -3,10 +3,9 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     <mapper namespace="com.stly7.pojo">
-    	
-    	<!-- 多个查询 -->
-    	<select id="listCategory" resultType="Category">
-    		select * from category_
-    	</select>
-    	<!-- 名字必须一样的,这里只是方便看 -->
+    	<!-- 首先需要配置id标示 -->
+    	<resultMap type="Category" id="CategoryBean">
+    		<id column="pid" property="id"/>
+    		<result column="" >
+    	</resultMap>
     </mapper>

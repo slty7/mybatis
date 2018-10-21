@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.stly7.pojo">
+    	
+    	<!-- 多个查询 -->
+    	<select id="listCategory" resultType="Category">
+    		select * from category_
+    	</select>
+    	<!-- 
+    		<select id="getCategory" parameterType="Integer" resultType="Category">
+    	 	_int 是mybatis 内置的一个int表达
+    	 -->
+    	<select id="getCategory" parameterType="_int" resultType="Category">
+    		
+    	</select>
+    	
+    	<!-- 插入 -->
+    	<insert id="addCategory" parameterType="Category">
+    		insert into category_ (name) values (#{name})
+    	</insert>
+    	
+    	<!-- 删除 -->
+    	<delete id="deleteCategory" parameterType="Category" >
+    		delete from category_ where id = #{id}
+    	</delete>
+    	
+    	<!-- 修改 更新-->
+    	<update id="updateCategory" parameterType="Category">
+    		update category_ set name = #{name} where id = #{id} 
+    	</update>
+    	
+    </mapper>
