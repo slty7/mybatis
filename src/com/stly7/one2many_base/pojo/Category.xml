@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.stly7.one2many_base.pojo">
+    	
+    	<!-- many to one -->
+    	<resultMap type="Category" id="CategoryBean">
+    		<!-- 做好标记 -->
+			<id column="cid" property="id"/>    	
+    		<result column="cname" property="name"/>
+    		
+    		<!-- 配置 many to one 的关系 -->
+    		<!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
+    		<collection property="products" ofType="Product">
+    			<id column="pid" property="id"/>
+    			<result column="pname" property="name"/>
+    			<result column="price" property="price"/>
+    		</collection>
+    	</resultMap>
+    	<!-- 关联查询分类和产品 -->
+    	<select id="listCategory" resultMap="CategoryBean">
+    		<!-- 第一步 , 因为是多表不能使用where进行查询, 所以用on -->
+    		<!-- select * from category_ as c left join product_ as p on c.id = p.cid -->
+    		<!-- 再加上条件即可 -->
+    		<!--  select c.*, p.*, c.id as 'cid', p.id as 'pid', c.name as 'cname', p.name as 'pname' from category_ as c left join product_ as p on c.id = p.cid-->
+    		<!-- 简化一下 -->
+    		select c.*, p.*, c.id 'cid', p.id 'pid', c.name 'cname', p.name 'pname' from category_ c left join product_ p on c.id = p.cid
+    	</select>
+    	
+    	
+    </mapper>

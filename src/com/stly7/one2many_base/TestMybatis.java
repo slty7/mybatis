@@ -1,4 +1,4 @@
-package com.stly7;
+package com.stly7.one2many_base;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,12 +10,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.stly7.pojo.Category;
-import com.stly7.pojo.Product;
+import com.stly7.one2many_base.pojo.Category;
+import com.stly7.one2many_base.pojo.Product;
 
 public class TestMybatis {
 	public static void main(String[] args) throws IOException {
-		String resource = "mybatis-config.xml";
+		String resource = "mybatis-config_one2many_base.xml";
 		InputStream inputStream = Resources.getResourceAsStream(resource);
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
 
@@ -23,7 +23,7 @@ public class TestMybatis {
 
 		// 查询
 		List<Category> cs = session.selectList("listCategory");
-		//List<Product> ps = session.selectList("com.stly7.pojo.listProduct");
+		//List<Product> ps = session.selectList("com.stly7.one2many_base.pojo.listProduct");
 		// for (Category category : cs) {
 		// System.out.println(category.getId() + " : " + category.getName());
 		// }
