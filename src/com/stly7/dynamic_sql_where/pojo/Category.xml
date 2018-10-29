@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.stly7.dynamic_sql_where.pojo">
+    	<resultMap type="Category" id="categoryBean">
+    		<id column="cid" property="id"/>
+    		<result column="cname" property="name"/>
+    		
+    		<collection property="product" ofType="Product">
+    			<id column="pid" property="id"/>
+    			<result column="pname" property="name"/>
+    			<result column="price" property="price"/>
+    		</collection>
+    	</resultMap>
+    	<select id="listCatetory" resultMap="categoryBean">
+    		select c.*, p.* from category_ c left join product_ p on c.id = p.cid;
+    	</select>
+    </mapper>
