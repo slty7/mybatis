@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.stly7.many2one.pojo">
+	<resultMap type="Category" id="categoryBean">
+		<id column="cid" property="id"/>
+		<result column="cname" property="name"/>
+		
+		<collection property="products" ofType="Product">
+			<id column="pid" property="id"/>
+			<result column="pname" property="name" />
+			<result column="price" property="price"/>
+		</collection>
+	</resultMap>
+	<select id="listCategory" resultMap="categoryBean" >
+		<!--第一阶段 select * from category_ as c left join product_ p on c.id = p.cid -->
+		<!--第二阶段 select c.*, p.*, c.id as 'cid', c.name as 'cname', p.id as 'pid', p.name as 'pname' from category_ as c left join product_ as p on c.id = p.cid -->
+		<!-- 第三阶段简化 -->
+		select c.*, p.*, c.id 'cid', c.name 'cname',p.id 'id', p.name 'name',p.price 'price' from category_ c left join product_ p on c.id = p.cid
+	</select>
+</mapper>

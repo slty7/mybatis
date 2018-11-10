@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.stly7.dynamic_sql_if.pojo"> 
+    	<!-- <resultMap type="Product" id="productBean">
+    		<id column="pid" property="id"/>
+    		<result column="pname" property="name"/>
+    		<result column="price" property="price"/>
+
+
+    		多对一定 级联查询 
+    		<association property="categoryBean" jdbcType="Category">
+    			<id column="cid" property="id"/>
+    			<result column="cname" property="name"/>
+    		</association>
+    		
+    	</resultMap> -->
+    	<!-- one2many级联查询 -->
+    	<!--
+    	<select id="listProduct" resultMap="productBean">
+    		select c.*, p.* from category_ c left join product_ p on c.id = p.cid;
+    	</select>
+    	-->
+    	
+    	
+    	
+    	<!--  以上是多对多一对多双向查询-->
+    	<!-- <select id="listProduct" resultType="Product">
+    		select * from product_
+    	</select>
+        <select id="listProductByName" resultType="Product">
+            select * from product_  where name like concat('%',#{name},'%')        
+        </select> -->
+        <!-- 简写使用if的方法 -->
+        <select id="listProduct" resultType="Product">
+            select * from product_ 
+            <if test="name != null">
+            	where name like concat ('%',#{name},'%')
+            </if>  
+            <!-- test里面是写if的条件 -->
+             
+        </select>
+         
+    </mapper>
+        

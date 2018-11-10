@@ -1,0 +1,13 @@
+
+先导入日志jar包
+然后建一个log4j.propeties文件复制下面这块文本,修改一下com后面的范围即可
+
+# Global logging configuration
+log4j.rootLogger=ERROR, stdout
+# MyBatis logging configuration...
+#这里一定是 log4j.logger.com.这样的后面的日志范围
+log4j.logger.com.stly7=TRACE
+# Console output...
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n

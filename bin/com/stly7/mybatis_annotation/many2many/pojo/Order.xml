@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.stly7.many2many.pojo">
+	<!-- 这里就是many2one的配置 -->
+	<resultMap type="Order" id="orderBean">
+		<id column="oid" property="id"/>
+		<result column="code" property="code"/>
+		<!-- 多对一 -->
+		<collection property="orderItems" ofType="OrderItem">
+			<id column="oiid" property="id"/>
+			<result column="number" property="number"/>
+			<!-- 多对多 -->
+			<!-- 由于多对是可以反向操作的,字需要配置一边就可以使用了 -->
+			<association property="product" javaType="Product">
+				<id column="pid" property="id"/>
+				<result column="pname" property="name"/>
+				<result column="price" property="price"/>
+			</association>
+		</collection>
+	</resultMap>
+	<select id="listOrder" resultMap="orderBean">
+		select o.*, p.*, oi.*, o.id 'oid', p.id 'pid', oi.id 'oiid', p.name 'pname' 
+		from order_ o left join order_item_ oi on o.id = oi.oid 
+		left join product_ p on p.id = oi.pid
+	</select>
+	
+	<select id="getOrder" resultMap="orderBean">
+		select o.*, p.*, oi.*, o.id 'oid', p.id 'pid', oi.id 'oiid', p.name 'pname' 
+		from order_ o left join order_item_ oi on o.id = oi.oid 
+		left join product_ p on p.id = oi.pid
+		where o.id = #{id}
+	</select>
+	
+	
+	<delete id="deleteOrder">
+		<!--
+			 比如删除订单A，那么就应该删除订单A在订单项里所对应的数据。
+
+			提示，通过Mybatis执行多条sql语句需要增加一个参数：allowMultiQueries
+ 
+			<property name="url" value="jdbc:mysql://localhost:3306/how2java?characterEncoding=UTF-8&amp;allowMultiQueries=true"/>
+			
+		 -->
+		delete from order_item_ where oid = #{id};
+	    delete from order_ where id= #{id};
+	</delete>	
+	
+</mapper>

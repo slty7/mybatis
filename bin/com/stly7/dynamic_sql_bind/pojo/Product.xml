@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.stly7.dynamic_sql_bind.pojo"> 
+    	<!-- 
+    	foeach教学
+        <select id="listProduct" resultType="Product">
+        	select * from product_
+        	<where>
+        		id in
+        			<foreach item="item" index="index" collection="list"  
+        				open="(" separator="," close=")">
+        				#{item}
+        			</foreach>
+        	</where>
+        </select> -->
+        
+        <!-- bind教学 -->
+         <select id="listProduct" resultType="Product">
+            <bind name="likename" value="'%' + name + '%'" />
+            select * from   product_  where name like #{likename}
+        </select>
+    </mapper>
+        
